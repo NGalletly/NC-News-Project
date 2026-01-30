@@ -8,7 +8,7 @@ afterAll(() => db.end());
 describe("seed", () => {
   describe("topics table", () => {
     test("topics table exists", () => {
-      seed().then(() => {
+      return seed(data).then(() => {
         return db
           .query(
             `SELECT EXISTS (
@@ -579,7 +579,7 @@ describe("seed", () => {
   });
 });
 
-describe.skip("data insertion", () => {
+describe("data insertion", () => {
   test("topics data has been inserted correctly", () => {
     return db.query(`SELECT * FROM topics;`).then(({ rows: topics }) => {
       expect(topics).toHaveLength(3);
