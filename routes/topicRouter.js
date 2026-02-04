@@ -9,10 +9,10 @@
 // }
 
 const express = require("express");
-const router = express.Router();
+const topicRouter = express.Router();
 
-router.get("/", (request, response) => {
+topicRouter.get("/", (request, response) => {
   response.status(200).send({ message: "topic route successful!" });
 });
 
-module.exports = router;
+module.exports = topicRouter;
