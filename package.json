@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
     "pg": "^8.13.3"
   },
   "jest": {
