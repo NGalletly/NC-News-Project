@@ -25,3 +25,13 @@ describe("GET /api/topics", () => {
       });
   });
 });
+
+describe("GET /articles", () => {
+  test("It should respond with an array of articles and a 200 status", () => {
+    return request(app)
+      .get("/api/articles")
+      .then((body) => {
+        expect(body.status).toBe(200);
+      });
+  });
+});
