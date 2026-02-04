@@ -98,11 +98,13 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       const resultRows = result.rows;
 
       const lookupObj = {};
+
       resultRows.forEach((row) => {
         lookupObj[row.title] = row.article_id;
       });
+      // const jimsObj = {}
 
-      const formattedCommentData = commentData.map((comment) => {
+      const formatData = commentData.map((comment) => {
         return [
           lookupObj[comment.article_title],
           comment.body,
@@ -112,12 +114,12 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
         ];
       });
 
-      const insertCommentsQuery = format(
+      const insertData = format(
         `INSERT INTO comments (article_id, body, votes, author, created_at) VALUES %L`,
-        formattedCommentData,
+        formatData,
       );
 
-      return db.query(insertCommentsQuery);
+      return db.query(insertData);
     });
 };
 
