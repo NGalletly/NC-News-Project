@@ -10,9 +10,12 @@
 
 const express = require("express");
 const topicRouter = express.Router();
+const { getTopics } = require("../controller/controller");
 
-topicRouter.get("/", (request, response) => {
-  response.status(200).send({ message: "topic route successful!" });
-});
+// topicRouter.get("/", (request, response) => {
+//   response.status(200).send({ message: "topic route successful!" });
+// });
+
+topicRouter.get("/", getTopics);
 
 module.exports = topicRouter;

@@ -10,11 +10,18 @@ afterAll(() => db.end());
 
 describe("GET /api/topics", () => {
   test("status:200, responds routing is correct", () => {
+    return request(app).get("/api/topics").expect(200);
+  });
+  test("status:200, responds with an array of topic objects", () => {
     return request(app)
       .get("/api/topics")
       .expect(200)
       .then(({ body }) => {
-        expect(body.message).toBe("topic route successful!");
+        const { topics } = body;
+        topics.forEach((topic) => {
+          expect(typeof topic.slug).toBe("string");
+          expect(typeof topic.description).toBe("string");
+        });
       });
   });
 });
