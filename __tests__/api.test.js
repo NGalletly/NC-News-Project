@@ -86,3 +86,13 @@ describe("GET /articles", () => {
       });
   });
 });
+
+describe("GET /api/users", () => {
+  test("It should respond with a 200 status", () => {
+    return request(app)
+      .get("/api/users")
+      .then((body) => {
+        expect(body.status).toBe(200);
+      });
+  });
+});
