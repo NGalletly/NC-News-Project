@@ -96,3 +96,21 @@ describe("GET /api/users", () => {
       });
   });
 });
+
+describe("GET /api/articles/:article_id with parametric id", () => {
+  test("It should respond with a 200 status", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .then((body) => {
+        expect(body.status).toBe(200);
+      });
+  });
+  test("It should respond with a article_id: 4 and title : 'Student SUES Mitch'", () => {
+    return request(app)
+      .get("/api/articles/4")
+      .then(({ body }) => {
+        expect(body.articles.article_id).toBe(4);
+        expect(body.articles.title).toBe("Student SUES Mitch!");
+      });
+  });
+});

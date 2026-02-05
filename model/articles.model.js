@@ -21,6 +21,14 @@ exports.selectArticles = () => {
     });
 };
 
+exports.selectArticlesByID = (article_id) => {
+  return db
+    .query(`select * from articles where article_id = $1`, [article_id])
+    .then(({ rows }) => {
+      return rows[0];
+    });
+};
+
 /*
 
 author
