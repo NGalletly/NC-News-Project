@@ -27,11 +27,62 @@ describe("GET /api/topics", () => {
 });
 
 describe("GET /articles", () => {
-  test("It should respond with an array of articles and a 200 status", () => {
+  test("It should respond with a 200 status", () => {
     return request(app)
       .get("/api/articles")
       .then((body) => {
         expect(body.status).toBe(200);
+      });
+  });
+  test("Should respond with a status of 200 and array with author, title, article_id, topic, created_at, votes, article_img_url", () => {
+    return request(app)
+      .get("/api/articles")
+      .then((response) => {
+        let articles = response.body;
+        expect(response.status).toBe(200);
+        articles.forEach((article) => {
+          expect(typeof article.author).toBe("string");
+          expect(typeof article.title).toBe("string");
+          expect(typeof article.article_id).toBe("number");
+          expect(typeof article.topic).toBe("string");
+          expect(typeof article.created_at).toBe("string");
+          expect(typeof article.votes).toBe("number");
+          expect(typeof article.article_img_url).toBe("string");
+        });
+      });
+  });
+  test("Should respond with comment_count", () => {
+    return request(app)
+      .get("/api/articles")
+      .then((response) => {
+        let articles = response.body;
+        expect(response.status).toBe(200);
+
+        articles.forEach((article) => {
+          expect(typeof article.comment_count).toBe("number");
+        });
+      });
+  });
+  test("the articles should be sorted by date in descending order.", () => {
+    return request(app)
+      .get("/api/articles")
+      .then((response) => {
+        const articles = response.body;
+        expect(articles).toBeSortedBy("created_at", {
+          descending: true,
+        });
+      });
+  });
+  test("Articles.body should not be included", () => {
+    return request(app)
+      .get("/api/articles")
+      .then((response) => {
+        let articles = response.body;
+        expect(response.status).toBe(200);
+
+        articles.forEach((article) => {
+          expect(typeof article.body).toBe("undefined");
+        });
       });
   });
 });
