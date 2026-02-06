@@ -10,14 +10,16 @@ exports.getArticles = (request, response) => {
   });
 };
 
-exports.getArticlesByID = (request, response) => {
+exports.getArticlesByID = (request, response, next) => {
   const { article_id } = request.params;
-  fetchArticlesByID(article_id).then((articles) => {
-    {
-      // console.log(articles);
-      response.status(200).send({ articles });
-    }
-  });
+  fetchArticlesByID(article_id)
+    .then((articles) => {
+      {
+        // console.log(articles);
+        response.status(200).send({ articles });
+      }
+    })
+    .catch(next);
 };
 
 // exports.getArticlesByID = (request, response, next) => {

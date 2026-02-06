@@ -121,4 +121,12 @@ describe("GET /api/articles/:article_id with parametric id", () => {
         expect(body.message).toBe("Path doesn't exist.");
       });
   });
+  test("incorrect type '/api/articles/dogs' responds with 400 error code and message ", () => {
+    return request(app)
+      .get("/api/articles/dogs")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message).toBe("Bad request.");
+      });
+  });
 });
