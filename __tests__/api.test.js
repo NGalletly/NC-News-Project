@@ -129,4 +129,12 @@ describe("GET /api/articles/:article_id with parametric id", () => {
         expect(body.message).toBe("Bad request.");
       });
   });
+  test("when given an id that doesnt exist, returns a 404 error", () => {
+    return request(app)
+      .get("/api/articles/7666")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Item doesn't exist.");
+      });
+  });
 });

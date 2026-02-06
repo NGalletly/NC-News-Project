@@ -8,5 +8,11 @@ exports.fetchArticles = () => {
 };
 
 exports.fetchArticlesByID = (article_id) => {
-  return selectArticlesByID(article_id);
+  return selectArticlesByID(article_id).then((article) => {
+    if (!article) {
+      throw { status: 404, message: "Item doesn't exist." };
+    } else {
+      return article;
+    }
+  });
 };
