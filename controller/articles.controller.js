@@ -14,7 +14,7 @@ exports.getArticlesByID = (request, response) => {
   const { article_id } = request.params;
   fetchArticlesByID(article_id).then((articles) => {
     {
-      console.log(articles);
+      // console.log(articles);
       response.status(200).send({ articles });
     }
   });

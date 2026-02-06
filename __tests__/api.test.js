@@ -113,4 +113,12 @@ describe("GET /api/articles/:article_id with parametric id", () => {
         expect(body.articles.title).toBe("Student SUES Mitch!");
       });
   });
+  test("incorrect route '/dogs' responds with 400 error code and message ", () => {
+    return request(app)
+      .get("/dogs")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.message).toBe("Path doesn't exist.");
+      });
+  });
 });
