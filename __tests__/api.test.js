@@ -180,4 +180,30 @@ describe("CORE: POST /api/articles/:article_id/comments", () => {
         expect(comment.article_id).toBe(1);
       });
   });
+  test("if given a string for article id should return 400: bad request", () => {
+    const commentBody = {
+      username: "butter_bridge",
+      body: "This is my first time posting a comment.",
+    };
+    return request(app)
+      .post("/api/articles/banana/comments")
+      .send(commentBody)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message).toEqual("Bad request.");
+      });
+  });
+  test("if given a article id that doesnt exist should returnshould return 404: not found", () => {
+    const commentBody = {
+      username: "butter_bridge",
+      body: "This is my first time posting a comment.",
+    };
+    return request(app)
+      .post("/api/articles/12039123/comments")
+      .send(commentBody)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.message).toEqual("Item doesn't exist.");
+      });
+  });
 });

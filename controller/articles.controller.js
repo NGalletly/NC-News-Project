@@ -33,8 +33,15 @@ exports.getArticlesByID = (request, response, next) => {
     })
     .catch(next);
 };
+
+
 exports.getCommentsByID = (request, response, next) => {
   const { article_id } = request.params;
+
+  // if (typeof article_id !== "number") {
+  //   throw err;
+  // }.catch(next);
+
   fetchCommentsByID(article_id)
     .then((comments) => {
       {
