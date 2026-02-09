@@ -3,7 +3,18 @@ const {
   fetchArticlesByID,
   fetchCommentsByID,
   postAndFetchComment,
+  serviceUpdateVotes,
 } = require("../service/articles.service");
+
+exports.updateVotesForArticleByID = (request, response, next) => {
+  const { article_id } = request.params;
+  const { inc_votes } = request.body;
+  serviceUpdateVotes(article_id, inc_votes)
+    .then((article) => {
+      response.status(200).send({ article });
+    })
+    .catch(next);
+};
 
 exports.postCommentByArticleID = (request, response, next) => {
   const { article_id } = request.params;
@@ -33,7 +44,6 @@ exports.getArticlesByID = (request, response, next) => {
     })
     .catch(next);
 };
-
 
 exports.getCommentsByID = (request, response, next) => {
   const { article_id } = request.params;

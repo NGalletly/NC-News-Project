@@ -3,6 +3,7 @@ const {
   selectArticlesByID,
   selectCommentsByID,
   selectPostedComment,
+  selectArticleAlterVotes,
 } = require("../model/articles.model");
 
 const { checkArticleExists } = require("../model/doesArticleExist");
@@ -35,6 +36,14 @@ exports.postAndFetchComment = (article_id, postComment) => {
       postComment.body,
     ).then((comment) => {
       return comment;
+    });
+  });
+};
+
+exports.serviceUpdateVotes = (article_id, inc_votes) => {
+  return checkArticleExists(article_id).then(() => {
+    return selectArticleAlterVotes(article_id, inc_votes).then((article) => {
+      return article;
     });
   });
 };

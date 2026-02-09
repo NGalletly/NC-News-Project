@@ -55,3 +55,14 @@ exports.selectPostedComment = (article_id, username, body) => {
       return rows[0];
     });
 };
+
+exports.selectArticleAlterVotes = (article_id, votes) => {
+  return db
+    .query(
+      `UPDATE articles SET VOTES =  VOTES + $1 where article_id = $2 RETURNING *;`,
+      [votes, article_id],
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+};

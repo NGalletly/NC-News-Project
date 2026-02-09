@@ -5,7 +5,10 @@ const {
   getArticlesByID,
   getCommentsByID,
   postCommentByArticleID,
+  updateVotesForArticleByID,
 } = require("../controller/articles.controller");
+
+articlesRouter.patch("/:article_id", updateVotesForArticleByID);
 
 articlesRouter.post("/:article_id/comments", postCommentByArticleID);
 

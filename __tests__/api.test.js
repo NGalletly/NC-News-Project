@@ -159,6 +159,8 @@ describe("GET /api/articles/:articleid/comments", () => {
   });
 });
 
+// Task 6
+
 describe("CORE: POST /api/articles/:article_id/comments", () => {
   test("request body accepts usename,body", () => {
     const commentBody = {
@@ -204,6 +206,43 @@ describe("CORE: POST /api/articles/:article_id/comments", () => {
       .expect(404)
       .then(({ body }) => {
         expect(body.message).toEqual("Item doesn't exist.");
+      });
+  });
+});
+
+//Task 7
+describe("CORE: PATCH /api/articles/:article_id", () => {
+  test("Patch gains access to DB and returns status 200", () => {
+    const addFiveVotes = { inc_votes: 5 };
+    const expectedStatus = 200;
+    return request(app)
+      .patch("/api/articles/1")
+      .send(addFiveVotes)
+      .expect(expectedStatus);
+  });
+  test("Patch gains access to DB and updates article.votes", () => {
+    const addFiveVotes = { inc_votes: 5 };
+    const expectedStatus = 200;
+
+    return request(app)
+      .patch("/api/articles/1")
+      .send(addFiveVotes)
+      .expect(expectedStatus)
+      .then(({ body }) => {
+        const article = body.article;
+        expect(article.votes).toBe(105);
+      });
+  });
+  test("Patch gains access to DB and updates article.votes with subtraction", () => {
+    const patchBody = { inc_votes: -5 };
+    const expectedStatus = 200;
+    return request(app)
+      .patch("/api/articles/1")
+      .send(patchBody)
+      .expect(expectedStatus)
+      .then(({ body }) => {
+        const article = body.article;
+        expect(article.votes).toBe(95);
       });
   });
 });
