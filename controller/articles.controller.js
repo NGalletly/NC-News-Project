@@ -1,7 +1,19 @@
 const {
   fetchArticles,
   fetchArticlesByID,
+  fetchCommentsByID,
+  postAndFetchComment,
 } = require("../service/articles.service");
+
+exports.postCommentByArticleID = (request, response, next) => {
+  const { article_id } = request.params;
+  const postComment = request.body;
+  postAndFetchComment(article_id, postComment)
+    .then((comment) => {
+      response.status(201).send({ comment });
+    })
+    .catch(next);
+};
 
 exports.getArticles = (request, response) => {
   fetchArticles().then((articles) => {
@@ -21,12 +33,13 @@ exports.getArticlesByID = (request, response, next) => {
     })
     .catch(next);
 };
-
-// exports.getArticlesByID = (request, response, next) => {
-//   const { article_id } = request.params;
-//   fetchArticlesByID(article_id)
-//     .then((article) => {
-//       response.status(200).send({ article });
-//     })
-//     .catch(next);
-// };
+exports.getCommentsByID = (request, response, next) => {
+  const { article_id } = request.params;
+  fetchCommentsByID(article_id)
+    .then((comments) => {
+      {
+        response.status(200).send({ comments });
+      }
+    })
+    .catch(next);
+};

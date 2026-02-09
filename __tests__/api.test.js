@@ -134,7 +134,50 @@ describe("GET /api/articles/:article_id with parametric id", () => {
       .get("/api/articles/7666")
       .expect(404)
       .then(({ body }) => {
-        expect(body.msg).toBe("Item doesn't exist.");
+        expect(body.message).toBe("Item doesn't exist.");
+      });
+  });
+});
+
+describe("GET /api/articles/:articleid/comments", () => {
+  test("It should respond with a 200 status", () => {
+    return request(app)
+      .get("/api/articles/1/comments")
+      .then((body) => {
+        expect(body.status).toBe(200);
+      });
+  });
+  test("It should respond with a an array with nested objects with comment_id,votes,created_at, author ,body ,article_id", () => {
+    return request(app)
+      .get("/api/articles/1/comments")
+      .then(({ body }) => {
+        let comments = body.comments;
+        comments.forEach((comment) => {
+          expect(typeof comment.comment_id).toBe("number");
+        });
+      });
+  });
+});
+
+describe("CORE: POST /api/articles/:article_id/comments", () => {
+  test("request body accepts usename,body", () => {
+    const commentBody = {
+      username: "butter_bridge",
+      body: "This is my first time posting a comment.",
+    };
+    const expectedStatus = 201;
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(commentBody)
+      .expect(201)
+      .then(({ body }) => {
+        const comment = body.comment;
+
+        expect(comment.author).toBe("butter_bridge");
+        expect(typeof comment.created_at).toBe("string");
+        expect(typeof comment.votes).toBe("number");
+        expect(comment.votes).toBe(0);
+        expect(comment.article_id).toBe(1);
       });
   });
 });

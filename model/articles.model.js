@@ -20,6 +20,22 @@ exports.selectArticles = () => {
       return rows;
     });
 };
+exports.selectCommentsByID = (article_id) => {
+  return db
+    .query(
+      `SELECT 
+     comment_id,
+votes,
+created_at,
+author,
+body,
+article_id FROM comments WHERE article_id = $1`,
+      [article_id],
+    )
+    .then(({ rows }) => {
+      return rows;
+    });
+};
 
 exports.selectArticlesByID = (article_id) => {
   return db
@@ -29,14 +45,13 @@ exports.selectArticlesByID = (article_id) => {
     });
 };
 
-/*
-
-author
-title
-article_id
-topic
-created_at
-votes
-article_img_url
-comment_count
-*/
+exports.selectPostedComment = (article_id, username, body) => {
+  return db
+    .query(
+      `INSERT INTO comments (article_id, author, body) VALUES ($1, $2, $3) RETURNING *;`,
+      [article_id, username, body],
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+};

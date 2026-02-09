@@ -11,6 +11,8 @@ const {
   handleServerError,
 } = require("./errors/errorHandler");
 
+app.use(express.json());
+
 app.use("/api/topics", topicsRouter);
 app.use("/api/articles", articlesRouter);
 app.use("/api/users", usersRouter);
@@ -19,10 +21,12 @@ app.use("/api/users", usersRouter);
 
 //route error
 app.all("/*path", handleIncorrectRoute);
-//item doesnt exist
-app.use(handleCustomErrors);
+
 // bad request
 app.use(handleBadRequest);
+//item doesnt exist
+app.use(handleCustomErrors);
 //500 handler
 app.use(handleServerError);
+
 module.exports = app;
