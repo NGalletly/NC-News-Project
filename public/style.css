@@ -1,0 +1,51 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: bisque;
+  color: #333;
+}
+
+header {
+  background-color: rgb(3, 64, 3);
+  color: bisque;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+ul {
+  padding-left: 0px;
+  list-style-type: none;
+  max-width: 100%;
+}
+
+li {
+  padding-left: 0px;
+}
+
+.endpoint-card {
+  background-color: rgb(3, 64, 3);
+  border: 1px solid bisque;
+  border-radius: 25px;
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  color: bisque;
+}
+
+.endpoint-card pre,
+.endpoint-card code {
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+main > h2 {
+  text-align: center;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+}
