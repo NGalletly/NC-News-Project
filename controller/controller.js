@@ -7,7 +7,7 @@ exports.getTopics = (request, response) => {
       response.status(200).send({ topics: topics });
     })
     .catch((err) => {
-      if ((err.code = "22P02")) {
+      if ((err.code === "22P02")) {
         response.status(400).send({ message: "Bad Request." });
       }
     });

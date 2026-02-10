@@ -6,7 +6,7 @@ const {
   selectArticleAlterVotes,
 } = require("../model/articles.model");
 
-const { checkArticleExists } = require("../model/doesArticleExist");
+const { checkArticleExists } = require("../model/doesParametricEndpointExist");
 
 exports.fetchArticles = () => {
   return selectArticles();

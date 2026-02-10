@@ -4,6 +4,8 @@ const app = express();
 const topicsRouter = require("./routes/topic.router");
 const articlesRouter = require("./routes/articles.router");
 const usersRouter = require("./routes/users.router");
+const commentsRouter = require("./routes/comments.router.js");
+
 const {
   handleIncorrectRoute,
   handleBadRequest,
@@ -15,6 +17,7 @@ app.use(express.json());
 
 app.use("/api", express.static("public"));
 
+app.use("/api/comments", commentsRouter);
 app.use("/api/topics", topicsRouter);
 app.use("/api/articles", articlesRouter);
 app.use("/api/users", usersRouter);
