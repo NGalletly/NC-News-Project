@@ -13,6 +13,8 @@ const {
 
 app.use(express.json());
 
+app.use("/api", express.static("public"));
+
 app.use("/api/topics", topicsRouter);
 app.use("/api/articles", articlesRouter);
 app.use("/api/users", usersRouter);

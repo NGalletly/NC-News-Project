@@ -38,7 +38,7 @@ describe("GET /articles", () => {
     return request(app)
       .get("/api/articles")
       .then((response) => {
-        let articles = response.body;
+        let { articles } = response.body;
         expect(response.status).toBe(200);
         articles.forEach((article) => {
           expect(typeof article.author).toBe("string");
@@ -55,7 +55,7 @@ describe("GET /articles", () => {
     return request(app)
       .get("/api/articles")
       .then((response) => {
-        let articles = response.body;
+        let { articles } = response.body;
         expect(response.status).toBe(200);
 
         articles.forEach((article) => {
@@ -67,7 +67,7 @@ describe("GET /articles", () => {
     return request(app)
       .get("/api/articles")
       .then((response) => {
-        const articles = response.body;
+        const { articles } = response.body;
         expect(articles).toBeSortedBy("created_at", {
           descending: true,
         });
@@ -77,7 +77,7 @@ describe("GET /articles", () => {
     return request(app)
       .get("/api/articles")
       .then((response) => {
-        let articles = response.body;
+        let { articles } = response.body;
         expect(response.status).toBe(200);
 
         articles.forEach((article) => {

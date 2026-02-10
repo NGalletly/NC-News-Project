@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NC News API</title>
+  </head>
+  <body>
+    <header>
+      <h1>NC News API</h1>
+      <p>
+        This Api fetches articles where you can read the information and
+        comments. You can add your own comment or upvote hot takes(or downvote
+        trash garbage trolls if you like).
+      </p>
+    </header>
+    <main>
+      <h2>Available Endpoints</h2>
+      <ul>
+        <li>
+          <h3>GET /api/topics</h3>
+          <p>Retrieve a list of all topics.</p>
+
+          <h4>Example response:</h4>
+          <pre>
+  <code>
+{
+  "topics": [
+    {
+      "slug": "coding",
+      "description": "Code is love, code is life"
+    },
+    {
+      "slug": "football",
+      "description": "FOOTIE!"
+    },
+    {
+      "slug": "cooking",
+      "description": "Hey good looking, what you got cooking?"
+    }
+  ]
+}
+  </code>
+</pre>
+        </li>
+        <li>
+          <h3>GET /api/users</h3>
+          <p>Retrieve a list of all Users.</p>
+
+          <h4>Example response:</h4>
+          <pre>
+  <code>
+{
+	"users": [
+		{
+			"username": "tickle122",
+			"name": "Tom Tickle",
+			"avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953"
+		},
+		{
+			"username": "grumpy19",
+			"name": "Paul Grump",
+			"avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013"
+		}}
+  </code>
+</pre>
+        </li>
+
+        <li>
+          <h3>GET /api/articles</h3>
+          <p>Retrieve a list of all articles.</p>
+
+          <h4>Example response:</h4>
+          <pre>
+  <code>
+	{
+		"author": "grumpy19",
+		"title": "The Notorious MSG’s Unlikely Formula For Success",
+		"article_id": 34,
+		"topic": "cooking",
+		"created_at": "2020-11-22T11:13:00.000Z",
+		"votes": 0,
+		"article_img_url": "https://images.pexels.com/photos/2403392/pexels-photo-2403392.jpeg?w=700&h=700",
+		"comment_count": 11
+	},
+	{
+		"author": "tickle122",
+		"title": "The battle for Node.js security has only begun",
+		"article_id": 12,
+		"topic": "coding",
+		"created_at": "2020-11-15T13:25:00.000Z",
+		"votes": 0,
+		"article_img_url": "https://images.pexels.com/photos/10845119/pexels-photo-10845119.jpeg?w=700&h=700",
+		"comment_count": 7
+	}
+  </code>
+</pre>
+        </li>
+
+        <li>four</li>
+      </ul>
+    </main>
+  </body>
+</html>

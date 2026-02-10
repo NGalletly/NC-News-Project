@@ -29,7 +29,7 @@ exports.postCommentByArticleID = (request, response, next) => {
 exports.getArticles = (request, response) => {
   fetchArticles().then((articles) => {
     // console.log(articles);
-    response.status(200).send(articles);
+    response.status(200).send({ articles });
   });
 };
 
