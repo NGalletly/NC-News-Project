@@ -245,7 +245,7 @@ describe("CORE: PATCH /api/articles/:article_id", () => {
         expect(article.votes).toBe(95);
       });
   });
-});
+}); // need to add error testing here
 
 describe("DELETE /api/comments/:comment_id", () => {
   test("should be available at /api/comments and return 200", () => {
@@ -253,5 +253,38 @@ describe("DELETE /api/comments/:comment_id", () => {
   });
   test("should be available and return 204 status", () => {
     return request(app).delete("/api/comments/1").expect(204);
+  });
+});
+// need to add error testing here
+
+describe("GET /api/articles (sorting queries)", () => {
+  test("Sends Query to DB and returns status(200)", () => {
+    const query = { sort_by: "votes", order_by: "asc" };
+    return request(app).get("/api/articles").query(query).expect(200);
+  });
+  test("200: responds with articles sorted by votes in ascending order", () => {
+    const query = { sort_by: "votes", order: "asc" };
+
+    return request(app)
+      .get("/api/articles")
+      .query(query)
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toBeSortedBy("votes", { ascending: true });
+      });
+  });
+});
+
+describe("GET /api/articles/:article_id", () => {
+  test("200: responds with an article object containing a comment_count as a number", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(typeof articles.comment_count).toBe("number");
+        expect(articles.comment_count).toBe(11);
+      });
   });
 });

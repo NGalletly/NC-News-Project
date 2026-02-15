@@ -6,10 +6,15 @@ const {
   selectArticleAlterVotes,
 } = require("../model/articles.model");
 
-const { checkArticleExists } = require("../model/doesParametricEndpointExist");
+const {
+  checkArticleExists,
+  validateArticleQueries,
+} = require("../model/doesParametricEndpointExist");
 
-exports.fetchArticles = () => {
-  return selectArticles();
+exports.fetchArticles = (sort_by = "created_at", order = "desc") => {
+  return validateArticleQueries(sort_by, order).then(() => {
+    return selectArticles(sort_by, order);
+  });
 };
 
 exports.fetchArticlesByID = (article_id) => {

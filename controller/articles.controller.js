@@ -26,11 +26,17 @@ exports.postCommentByArticleID = (request, response, next) => {
     .catch(next);
 };
 
-exports.getArticles = (request, response) => {
-  fetchArticles().then((articles) => {
-    // console.log(articles);
-    response.status(200).send({ articles });
-  });
+exports.getArticles = (request, response, next) => {
+  const { sort_by, order } = request.query;
+
+  fetchArticles(sort_by, order)
+    .then((articles) => {
+      response.status(200).send({ articles });
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
 };
 
 exports.getArticlesByID = (request, response, next) => {

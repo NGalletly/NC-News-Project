@@ -19,3 +19,21 @@ exports.checkCommentExists = (comment_id) => {
       }
     });
 };
+
+exports.validateArticleQueries = (sort_by, order) => {
+  const validSorts = [
+    "article_id",
+    "title",
+    "topic",
+    "author",
+    "created_at",
+    "votes",
+  ];
+  const validOrders = ["asc", "desc"];
+
+  if (!validSorts.includes(sort_by) || !validOrders.includes(order)) {
+    return Promise.reject({ status: 400, msg: "Invalid query" });
+  } else {
+    return Promise.resolve();
+  }
+};

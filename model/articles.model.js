@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 
-exports.selectArticles = () => {
+exports.selectArticles = (sort_by, order) => {
   return db
     .query(
       `SELECT 
@@ -14,12 +14,13 @@ exports.selectArticles = () => {
        COUNT(comments.comment_id)::INT AS comment_count
     FROM articles 
     LEFT JOIN comments ON articles.article_id = comments.article_id
-    GROUP BY articles.article_id ORDER BY articles.created_at DESC`,
+    GROUP BY articles.article_id ORDER BY articles.${sort_by} ${order} `,
     )
     .then(({ rows }) => {
       return rows;
     });
 };
+
 exports.selectCommentsByID = (article_id) => {
   return db
     .query(
@@ -39,7 +40,14 @@ article_id FROM comments WHERE article_id = $1`,
 
 exports.selectArticlesByID = (article_id) => {
   return db
-    .query(`select * from articles where article_id = $1`, [article_id])
+    .query(
+      `SELECT articles.*, COUNT(comments.comment_id)::INT AS comment_count
+       FROM articles
+       LEFT JOIN comments ON articles.article_id = comments.article_id
+       WHERE articles.article_id = $1
+       GROUP BY articles.article_id;`,
+      [article_id],
+    )
     .then(({ rows }) => {
       return rows[0];
     });
