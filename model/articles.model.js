@@ -1,9 +1,9 @@
 const db = require("../db/connection");
 
-exports.selectArticles = (sort_by, order) => {
-  return db
-    .query(
-      `SELECT 
+exports.selectArticles = (sort_by, order, topic) => {
+  const queryValues = []; //this will become [topic] which we add to end of query
+  let queryStr = `
+    SELECT 
       articles.author, 
       articles.title, 
       articles.article_id, 
@@ -11,14 +11,21 @@ exports.selectArticles = (sort_by, order) => {
       articles.created_at, 
       articles.votes, 
       articles.article_img_url,
-       COUNT(comments.comment_id)::INT AS comment_count
+      COUNT(comments.comment_id)::INT AS comment_count
     FROM articles 
     LEFT JOIN comments ON articles.article_id = comments.article_id
-    GROUP BY articles.article_id ORDER BY articles.${sort_by} ${order} `,
-    )
-    .then(({ rows }) => {
-      return rows;
-    });
+  `;
+
+  if (topic !== undefined) {
+    queryValues.push(topic); // [topic]
+    queryStr += ` WHERE articles.topic = $1`;
+  }
+
+  queryStr += ` GROUP BY articles.article_id ORDER BY ${sort_by} ${order}`;
+
+  return db.query(queryStr, queryValues).then(({ rows }) => {
+    return rows;
+  });
 };
 
 exports.selectCommentsByID = (article_id) => {

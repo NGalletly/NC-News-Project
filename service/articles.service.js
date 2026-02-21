@@ -9,11 +9,27 @@ const {
 const {
   checkArticleExists,
   validateArticleQueries,
+  checkTopicExists,
 } = require("../model/doesParametricEndpointExist");
 
-exports.fetchArticles = (sort_by = "created_at", order = "desc") => {
-  return validateArticleQueries(sort_by, order).then(() => {
-    return selectArticles(sort_by, order);
+// exports.fetchArticles = (sort_by = "created_at", order = "desc", topic) => {
+//   return Promise.all([
+//     validateArticleQueries(sort_by, order),
+//     checkTopicExists(topic),
+//   ]).then(() => {
+//     return selectArticles(sort_by, order, topic);
+//   });
+// };
+
+exports.fetchArticles = (sort_by = "created_at", order = "desc", topic) => {
+  const checks = [validateArticleQueries(sort_by, order)];
+
+  if (topic !== undefined) {
+    checks.push(checkTopicExists(topic));
+  }
+
+  return Promise.all(checks).then(() => {
+    return selectArticles(sort_by, order, topic);
   });
 };
 

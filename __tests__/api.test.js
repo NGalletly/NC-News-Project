@@ -291,7 +291,7 @@ describe("GET /api/articles/:article_id", () => {
 
 describe("GET /api/articles (topic query)", () => {
   test("should respond with 200 and articles that include topic query", () => {
-    const query = { topic: "coding" };
+    const query = { topic: "mitch" };
     return request(app)
       .get("/api/articles")
       .query(query)
@@ -299,13 +299,13 @@ describe("GET /api/articles (topic query)", () => {
       .then(({ body }) => {
         const { articles } = body;
         expect(articles.length > 0).toBe(true);
-        expect(articles.every((article) => article.topic === "coding")).toBe(
+        expect(articles.every((article) => article.topic === "mitch")).toBe(
           true,
         );
       });
   });
   test("should respond with 200 and articles that include topic query", () => {
-    const query = { topic: "football" };
+    const query = { topic: "cats" };
     return request(app)
       .get("/api/articles")
       .query(query)
@@ -313,9 +313,10 @@ describe("GET /api/articles (topic query)", () => {
       .then(({ body }) => {
         const { articles } = body;
         expect(articles.length > 0).toBe(true);
-        expect(articles.every((article) => article.topic === "football")).toBe(
+        expect(articles.every((article) => article.topic === "cats")).toBe(
           true,
         );
       });
   });
+  test;
 });
