@@ -22,7 +22,16 @@
           <h3>GET /api/topics</h3>
           <p>Retrieve a list of all topics.</p>
 
-          <h4>Example response:</h4>
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+            GET https://nevilles-news.onrender.com/api/topics
+            </code>
+          </pre>
+
+                    <h4>Example Response:</h4>
           <pre>
   <code>
 {
@@ -42,11 +51,19 @@
   ]
 }
   </code>
-</pre>
+</pre></details>
         </li>
         <li class="endpoint-card">
           <h3>GET /api/users</h3>
           <p>Retrieve a list of all Users.</p>
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+            GET https://nevilles-news.onrender.com/api/users
+            </code>
+          </pre>
 
           <h4>Example response:</h4>
           <pre>
@@ -64,13 +81,21 @@
 			"avatar_url": "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013"
 		}}
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>GET /api/articles</h3>
           <p>Retrieve a list of all articles.</p>
 
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+            GET: https://nevilles-news.onrender.com/api/articles
+            </code>
+          </pre>
           <h4>Example response:</h4>
           <pre>
   <code>
@@ -97,14 +122,23 @@
 			"comment_count": 7
 		}}
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>GET api/articles/:article_id</h3>
           <p>Retrieve article by article_id.</p>
 
-          <h4>Example response for picking /api/articles/1:</h4>
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+            GET: https://nevilles-news.onrender.com/api/articles/1
+            </code>
+          </pre>
+
+          <h4>Example response:</h4>
           <pre>
   <code>
 {
@@ -120,13 +154,21 @@
 	}
 }
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>GET api/articles/:article_id/comments</h3>
           <p>Gets comments for articles which are article_id</p>
 
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example Request:</h4>
+          <pre>
+            <code>
+            GET:  https://nevilles-news.onrender.com/api/articles/1/comments
+            </code>
+          </pre>
           <h4>Example response:</h4>
           <pre>
   <code>
@@ -149,36 +191,62 @@
 			"article_id": 1
 		},}
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>POST api/articles/:article_id/comments</h3>
           <p>
             Post comment for article_id with {"username": "abc", "body":"xyz"}
+            Note : currently the username MUST exist.
           </p>
 
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+             POST: https://nevilles-news.onrender.com/api/articles/1/comments
+             JSON body:
+             {
+               "username": "weegembump",
+               "body": "Posting a comment"
+              }
+            </code>
+          </pre>
           <h4>Example response:</h4>
           <pre>
   <code>
 {
 	"comment": {
-		"comment_id": 331,
+		"comment_id": 321,
 		"article_id": 1,
-		"body": "Testing the service layer logic.",
+		"body": "Posting a comment",
 		"votes": 0,
 		"author": "weegembump",
-		"created_at": "2026-02-10T14:18:14.965Z"
+		"created_at": "2026-02-21T15:14:31.125Z"
 	}
 }
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>PATCH api/articles/:article_id</h3>
           <p>Updates votes for article ID using { "inc_votes": 1 }</p>
 
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+             PATCH: https://nevilles-news.onrender.com/api/articles/1
+             JSON body:
+             {
+               "inc_votes": 1
+              }
+            </code>
+          </pre>
           <h4>Example response:</h4>
           <pre>
   <code>
@@ -195,20 +263,28 @@
 	}
 }
   </code>
-</pre>
+</pre></details>
         </li>
 
         <li class="endpoint-card">
           <h3>DELETE /api/comments/:comment_id</h3>
           <p>Deletes comment from comment table using parametric endpoint, eg : "/api/comments/1"/</p>
-
+          <details>
+          <summary>Example request and response:</summary>
+          <h4>Example request:</h4>
+          <pre>
+            <code>
+            DELETE https://nevilles-news.onrender.com/api/articles/1
+            
+            </code>
+          </pre>  
           <h4>Example response:</h4>
           <pre>
   <code>
     Status code: 204,
     No body returned for response
   </code>
-</pre>
+</pre></details>
         </li>
         </li>
 
@@ -216,6 +292,9 @@
           <h3>GET /api/articles (sorting queries)</h3>
           <p>Feature request. This GET request should accept a request query parameter {sort_by: x, order_by: asc/desc} and return articles sorted by x and ordered by ascending/descending. The default query value is sort_by = "created_at" and order_by = "desc.""
           </p>
+
+          <details>
+          <summary>Example request and response:</summary>
           <h4>Example Request:</h4>
           <pre>
             <code>
@@ -259,13 +338,16 @@
 		}
   ]}
   </code>
-</pre>
+</pre></details>
         </li>
         <li class="endpoint-card">
           <h3>GET /api/articles (topic query)
 </h3>
           <p>Feature request. This GET request should accept a request query parameter {topic: "x"} and return articles including topic: "x"""
           </p>
+
+          <details>
+          <summary>Example request and response:</summary>
           <h4>Example Request:</h4>
           <pre>
             <code>
@@ -299,7 +381,7 @@
 		}
     ]}
   </code>
-</pre>
+</pre></details>
         </li>
       </ul>
     </main>
