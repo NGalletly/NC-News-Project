@@ -176,7 +176,7 @@
         </li>
 
         <li class="endpoint-card">
-          <h3>Patch api/articles/:article_id</h3>
+          <h3>PATCH api/articles/:article_id</h3>
           <p>Updates votes for article ID using { "inc_votes": 1 }</p>
 
           <h4>Example response:</h4>
@@ -194,6 +194,70 @@
 		"article_img_url": "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700"
 	}
 }
+  </code>
+</pre>
+        </li>
+
+        <li class="endpoint-card">
+          <h3>DELETE /api/comments/:comment_id</h3>
+          <p>Deletes comment from comment table using parametric endpoint, eg : "/api/comments/1"/</p>
+
+          <h4>Example response:</h4>
+          <pre>
+  <code>
+    Status code: 204,
+    No body returned for response
+  </code>
+</pre>
+        </li>
+        </li>
+
+        <li class="endpoint-card">
+          <h3>GET /api/articles (sorting queries)</h3>
+          <p>Feature request. This GET request should accept a request query parameter {sort_by: x, order_by: asc/desc} and return articles sorted by x and ordered by ascending/descending. The default query value is sort_by = "created_at" and order_by = "desc.""
+          </p>
+          <h4>Example Request:</h4>
+          <pre>
+            <code>
+             http://localhost:8800/api/articles?sort_by=article_id&order_by=desc
+            </code>
+          </pre>
+          <h4>Example response:</h4>
+          <pre>
+  <code>
+ {
+	"articles": [
+		{
+			"author": "weegembump",
+			"title": "TenHag the man!",
+			"article_id": 37,
+			"topic": "football",
+			"created_at": "2020-03-22T14:25:00.000Z",
+			"votes": 0,
+			"article_img_url": "https://images.pexels.com/photos/774321/pexels-photo-774321.jpeg?w=700&h=700",
+			"comment_count": 0
+		},
+		{
+			"author": "tickle122",
+			"title": "The vegan carnivore?",
+			"article_id": 36,
+			"topic": "cooking",
+			"created_at": "2020-03-09T21:21:00.000Z",
+			"votes": 0,
+			"article_img_url": "https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg?w=700&h=700",
+			"comment_count": 6
+		},
+		{
+			"author": "cooljmessy",
+			"title": "Stone Soup",
+			"article_id": 35,
+			"topic": "cooking",
+			"created_at": "2020-05-26T06:25:00.000Z",
+			"votes": 0,
+			"article_img_url": "https://images.pexels.com/photos/33242/cooking-ingredient-cuisine-kitchen.jpg?w=700&h=700",
+			"comment_count": 14
+		}
+  ]}
   </code>
 </pre>
         </li>

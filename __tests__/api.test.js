@@ -288,3 +288,34 @@ describe("GET /api/articles/:article_id", () => {
       });
   });
 });
+
+describe("GET /api/articles (topic query)", () => {
+  test("should respond with 200 and articles that include topic query", () => {
+    const query = { topic: "coding" };
+    return request(app)
+      .get("/api/articles")
+      .query(query)
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles.length > 0).toBe(true);
+        expect(articles.every((article) => article.topic === "coding")).toBe(
+          true,
+        );
+      });
+  });
+  test("should respond with 200 and articles that include topic query", () => {
+    const query = { topic: "football" };
+    return request(app)
+      .get("/api/articles")
+      .query(query)
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles.length > 0).toBe(true);
+        expect(articles.every((article) => article.topic === "football")).toBe(
+          true,
+        );
+      });
+  });
+});
