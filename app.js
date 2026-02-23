@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const topicsRouter = require("./routes/topic.router");
 const articlesRouter = require("./routes/articles.router");
@@ -14,6 +15,7 @@ const {
 } = require("./errors/errorHandler");
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api", express.static("public"));
 
