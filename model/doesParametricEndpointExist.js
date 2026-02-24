@@ -28,6 +28,7 @@ exports.validateArticleQueries = (sort_by, order) => {
     "author",
     "created_at",
     "votes",
+    "comment_count",
   ];
   const validOrders = ["asc", "desc"];
 

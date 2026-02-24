@@ -257,13 +257,13 @@ describe("DELETE /api/comments/:comment_id", () => {
 });
 // need to add error testing here
 
-describe("GET /api/articles (sorting queries)", () => {
+describe.only("GET /api/articles (sorting queries)", () => {
   test("Sends Query to DB and returns status(200)", () => {
     const query = { sort_by: "votes", order_by: "asc" };
     return request(app).get("/api/articles").query(query).expect(200);
   });
   test("200: responds with articles sorted by votes in ascending order", () => {
-    const query = { sort_by: "votes", order: "asc" };
+    const query = { sort_by: "votes", order_by: "asc" };
 
     return request(app)
       .get("/api/articles")
