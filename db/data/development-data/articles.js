@@ -333,7 +333,7 @@ module.exports = [
       "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?w=700&h=700",
   },
   {
-    title: "The Notorious MSG’s Unlikely Formula For Success",
+    title: "MSG’s ",
     topic: "cooking",
     author: "grumpy19",
     body: "The 'umami' craze has turned a much-maligned and misunderstood food additive into an object of obsession for the world’s most innovative chefs. But secret ingredient monosodium glutamate’s biggest secret may be that there was never anything wrong with it at all.",
