@@ -124,12 +124,3 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
 };
 
 module.exports = seed;
-
-// albumsClone.forEach((album) => {
-//   let artistName = album.artist;
-
-//   if (artistID[artistName]) {
-//     album.artist = artistID[artistName];
-//   }
-// });
-//

@@ -1,6 +1,10 @@
-# Neville News Seeding
+# Emerald News Backend
 
-Hello, welcome to the Nevilles News Project.
+Hello, welcome to Emerald News Project. This is a RESTful API for the Emerald News application, providing endpoints for articles, comments, topics, and user data.
+
+## Hosted API
+
+**Base URL:** [https://emerald-news.onrender.com/api/](https://emerald-news.onrender.com/api/)
 
 ## Technologies
 
@@ -60,7 +64,7 @@ npm run seed-dev
 
 ## Local development
 
-After creating databases and seeding please run
+After creating databases and seeding, to start the server please run
 
 ```
 npm start
@@ -76,3 +80,11 @@ Example endpoints:
 - [/api/articles](http://localhost:8800/api/articles)
 - [/api/users](http://localhost:8800/api/users)
 - [/api/comments](http://localhost:8800/api/comments)
+
+## About This Project
+
+This API was created as part of a Digital Skills Bootcamp in Software Engineering provided by **Northcoders**.
+
+---
+
+**Frontend Repository:** [https://github.com/NGalletly/nc-news-FE](https://github.com/NGalletly/nc-news-FE)
