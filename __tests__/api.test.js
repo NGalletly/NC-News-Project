@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../app"); // Point to your app.js
+const app = require("../app");
 const db = require("../db/connection");
 const seed = require("../db/seeds/seed");
 const data = require("../db/data/test-data");
@@ -210,7 +210,6 @@ describe("CORE: POST /api/articles/:article_id/comments", () => {
   });
 });
 
-//Task 7
 describe("CORE: PATCH /api/articles/:article_id", () => {
   test("Patch gains access to DB and returns status 200", () => {
     const addFiveVotes = { inc_votes: 5 };
@@ -245,7 +244,7 @@ describe("CORE: PATCH /api/articles/:article_id", () => {
         expect(article.votes).toBe(95);
       });
   });
-}); // need to add error testing here
+});
 
 describe("DELETE /api/comments/:comment_id", () => {
   test("should be available at /api/comments and return 200", () => {
@@ -255,9 +254,8 @@ describe("DELETE /api/comments/:comment_id", () => {
     return request(app).delete("/api/comments/1").expect(204);
   });
 });
-// need to add error testing here
 
-describe.only("GET /api/articles (sorting queries)", () => {
+describe("GET /api/articles (sorting queries)", () => {
   test("Sends Query to DB and returns status(200)", () => {
     const query = { sort_by: "votes", order_by: "asc" };
     return request(app).get("/api/articles").query(query).expect(200);

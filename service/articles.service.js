@@ -12,15 +12,6 @@ const {
   checkTopicExists,
 } = require("../model/doesParametricEndpointExist");
 
-// exports.fetchArticles = (sort_by = "created_at", order = "desc", topic) => {
-//   return Promise.all([
-//     validateArticleQueries(sort_by, order),
-//     checkTopicExists(topic),
-//   ]).then(() => {
-//     return selectArticles(sort_by, order, topic);
-//   });
-// };
-
 exports.fetchArticles = (sort_by = "created_at", order = "desc", topic) => {
   const checks = [validateArticleQueries(sort_by, order)];
 

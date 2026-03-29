@@ -9,6 +9,12 @@ const {
 exports.updateVotesForArticleByID = (request, response, next) => {
   const { article_id } = request.params;
   const { inc_votes } = request.body;
+
+  if (inc_votes === undefined) {
+    return response
+      .status(400)
+      .send({ msg: "Missing or incorrect request body" });
+  }
   serviceUpdateVotes(article_id, inc_votes)
     .then((article) => {
       response.status(200).send({ article });
@@ -19,6 +25,13 @@ exports.updateVotesForArticleByID = (request, response, next) => {
 exports.postCommentByArticleID = (request, response, next) => {
   const { article_id } = request.params;
   const postComment = request.body;
+
+  if (!postComment.username || !postComment.body) {
+    return response
+      .status(400)
+      .send({ msg: "Error, missing either username and/or body" });
+  }
+
   postAndFetchComment(article_id, postComment)
     .then((comment) => {
       response.status(201).send({ comment });
