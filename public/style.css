@@ -72,14 +72,12 @@ details {
 }
 
 details[open] {
-  /* background: rgb(red, rgb(48, 129, 94), blue); */
   background: rgba(52, 129, 100, 0.769);
-  /* color: rgb(99, 60, 22); */
 }
 
 summary {
   font-weight: bold;
-  list-style: none; /* removes default arrow */
+  list-style: none; 
   display: flex;
   justify-content: space-between;
   align-items: center;
