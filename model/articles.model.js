@@ -1,7 +1,7 @@
 const db = require("../db/connection");
 
 exports.selectArticles = (sort_by, order, topic) => {
-  const queryValues = []; //this will become [topic] which we add to end of query
+  const queryValues = [];
   let queryStr = `
     SELECT 
       articles.author, 
@@ -17,7 +17,7 @@ exports.selectArticles = (sort_by, order, topic) => {
   `;
 
   if (topic !== undefined) {
-    queryValues.push(topic); // [topic]
+    queryValues.push(topic);
     queryStr += ` WHERE articles.topic = $1`;
   }
 
