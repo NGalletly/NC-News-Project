@@ -1,2 +1,41 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
+const topicsRouter = require("./routes/topic.router");
+const articlesRouter = require("./routes/articles.router");
+const usersRouter = require("./routes/users.router");
+const commentsRouter = require("./routes/comments.router.js");
+
+const {
+  handleIncorrectRoute,
+  handleBadRequest,
+  handleCustomErrors,
+  handleServerError,
+} = require("./errors/errorHandler");
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/api", express.static("public"));
+
+app.use("/api/comments", commentsRouter);
+app.use("/api/topics", topicsRouter);
+app.use("/api/articles", articlesRouter);
+app.use("/api/users", usersRouter);
+
+//Error Handling
+
+//route error
+app.all("/*path", handleIncorrectRoute);
+
+// bad request
+app.use(handleBadRequest);
+//item doesnt exist
+app.use(handleCustomErrors);
+//500 handler
+app.use(handleServerError);
+
+app.all("*", handleIncorrectRoute);
+
+module.exports = app;

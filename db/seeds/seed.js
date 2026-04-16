@@ -53,14 +53,6 @@ const seed = function ({ topicData, userData, articleData, commentData }) {
 
       .then(() => {
         const formatData = topicData.map((topic) => {
-          console.log([
-            "topic.slug=",
-            topic.slug,
-            "topic.description=",
-            topic.description,
-            "topic.img_url=",
-            topic.img_url,
-          ]);
           return [topic.slug, topic.description, topic.img_url];
         });
 
@@ -97,22 +89,25 @@ const seed = function ({ topicData, userData, articleData, commentData }) {
         });
 
         const inputData = format(
-          `INSERT INTO articles (title,topic,author,body, created_at, votes, article_img_url) VALUES %L RETURNING *`,
+          `INSERT INTO articles (title,topic,author,body,created_at,votes,article_img_url) VALUES %L`,
           formatData,
         );
-
         return db.query(inputData);
       })
+      .then((result) => {
+        return db.query(`select article_id, title from articles`);
+      })
+      .then((result) => {
+        const resultRows = result.rows;
 
-      .then(({ rows: insertedArticles }) => {
-        const articleIdLookup = {};
-        insertedArticles.forEach((article) => {
-          articleIdLookup[article.title] = article.article_id;
+        const lookupObj = {};
+        resultRows.forEach((row) => {
+          lookupObj[row.title] = row.article_id;
         });
 
-        const formatData = commentData.map((comment) => {
+        const formattedCommentData = commentData.map((comment) => {
           return [
-            articleIdLookup[comment.article_title],
+            lookupObj[comment.article_title],
             comment.body,
             comment.votes,
             comment.author,
@@ -120,11 +115,12 @@ const seed = function ({ topicData, userData, articleData, commentData }) {
           ];
         });
 
-        const inputData = format(
+        const insertCommentsQuery = format(
           `INSERT INTO comments (article_id, body, votes, author, created_at) VALUES %L`,
-          formatData,
+          formattedCommentData,
         );
-        return db.query(inputData);
+
+        return db.query(insertCommentsQuery);
       })
   );
 };
