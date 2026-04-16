@@ -50,10 +50,7 @@ const seed = function ({ topicData, userData, articleData, commentData }) {
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`);
       })
-      // data insertion
-      // .then(()=>{
-      //   return db.query(`INSERT INTO topics VALUES`)
-      // })
+
       .then(() => {
         const formatData = topicData.map((topic) => {
           console.log([
@@ -100,37 +97,36 @@ const seed = function ({ topicData, userData, articleData, commentData }) {
         });
 
         const inputData = format(
-          `INSERT INTO articles (title,topic,author,body, created_at, votes, article_img_url) VALUES %L`,
+          `INSERT INTO articles (title,topic,author,body, created_at, votes, article_img_url) VALUES %L RETURNING *`,
           formatData,
         );
 
         return db.query(inputData);
       })
-      .then(() => {
+
+      .then(({ rows: insertedArticles }) => {
+        const articleIdLookup = {};
+        insertedArticles.forEach((article) => {
+          articleIdLookup[article.title] = article.article_id;
+        });
+
         const formatData = commentData.map((comment) => {
           return [
-            comment.article_id, //we want this to be article[id]
+            articleIdLookup[comment.article_title],
             comment.body,
             comment.votes,
             comment.author,
             comment.created_at,
           ];
         });
-        /*
-    article_id INT REFERENCES articles(article_id) NOT NULL,
-          body TEXT,
-          votes INT DEFAULT 0,
-          author VARCHAR REFERENCES users(username),
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          */
 
         const inputData = format(
-          `INSERT INTO comments (article_id, body, votes,author,created_at) VALUES %L`,
+          `INSERT INTO comments (article_id, body, votes, author, created_at) VALUES %L`,
           formatData,
         );
-        // return db.query(inputData);
+        return db.query(inputData);
       })
   );
-}; ////close of function
+};
 
 module.exports = seed;

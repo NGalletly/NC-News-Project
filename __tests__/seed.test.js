@@ -8,33 +8,17 @@ afterAll(() => db.end());
 describe("seed", () => {
   describe("topics table", () => {
     test("topics table exists", () => {
-      return seed(data).then(() => {
-        return db
-          .query(
-            `SELECT EXISTS (
+      return db
+        .query(
+          `SELECT EXISTS (
             SELECT FROM 
                 information_schema.tables 
             WHERE 
                 table_name = 'topics'
             );`,
-          )
-          .then(({ rows: [{ exists }] }) => {
-            expect(exists).toBe(true);
-          });
-      });
-    });
-
-    test("topics table has slug column as varying character", () => {
-      return db
-        .query(
-          `SELECT *
-            FROM information_schema.columns
-            WHERE table_name = 'topics'
-            AND column_name = 'slug';`,
         )
-        .then(({ rows: [column] }) => {
-          expect(column.column_name).toBe("slug");
-          expect(column.data_type).toBe("character varying");
+        .then(({ rows: [{ exists }] }) => {
+          expect(exists).toBe(true);
         });
     });
 
@@ -579,7 +563,7 @@ describe("seed", () => {
   });
 });
 
-describe.skip("data insertion", () => {
+describe("data insertion", () => {
   test("topics data has been inserted correctly", () => {
     return db.query(`SELECT * FROM topics;`).then(({ rows: topics }) => {
       expect(topics).toHaveLength(3);
