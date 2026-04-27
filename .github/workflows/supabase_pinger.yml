@@ -1,16 +1,23 @@
 name: Supabase Pinger
 on:
   schedule:
-    # This runs every 3 days (well within the 7-day limit)
     - cron: "0 0 */3 * *"
-  workflow_dispatch: # This adds a "Run now" button in GitHub so you can test it
+  workflow_dispatch:
 
 jobs:
   ping_supabase:
     runs-on: ubuntu-latest
     steps:
       - name: Send Heartbeat to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/articles?select=id&limit=1" \
-          -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+          if [ -z "$SUPABASE_URL" ]; then
+            echo "ERROR: SUPABASE_URL is empty. Check GitHub Settings > Secrets."
+            exit 1
+          fi
+
+          curl -i -X GET "$SUPABASE_URL/rest/v1/articles?select=id&limit=1" \
+          -H "apikey: $SUPABASE_ANON_KEY" \
+          -H "Authorization: Bearer $SUPABASE_ANON_KEY"
